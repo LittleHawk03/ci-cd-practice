@@ -1,7 +1,7 @@
 ---
 
 - name: setup docker
-  hosts: localhost
+  hosts: all
   become: true
   gather_facts: false
   vars:

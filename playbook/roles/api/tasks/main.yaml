@@ -24,16 +24,16 @@
   debug:
     var: latest_tag.stdout
 
-- name: full image of web server from docker hub
+- name: full image of api from docker hub
   docker_image:
-    name: "{{ webserver_image_name }}"
+    name: "{{ api_image_name }}"
     tag: "{{ latest_tag.stdout }}"
     source: pull
 
-- name: creat a docker container for web app and mapping port
+- name: creat a docker container for api and mapping port
   docker_container:
-    name: "{{ webapp_container_name }}"
-    image: "{{ webapp_image_name }}:{{ webapp_image_tag }}"
+    name: "{{ api_container_name }}"
+    image: "{{ api_image_name }}:{{ latest_tag.stdout }}"
     ports:
       - "5500:5500"
     env:
