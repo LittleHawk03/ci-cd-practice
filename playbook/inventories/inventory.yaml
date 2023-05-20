@@ -1,0 +1,20 @@
+---
+all:
+  hosts:
+    # this vps for web
+    vps1:
+      ansible_host: 192.168.89.109
+      ansible_become_user: root
+      ansible_become_password: 1
+    
+    # this vps for api
+    vps2:
+      ansible_host: 192.168.89.110
+      ansible_become_user: root
+      ansible_become_password: 1
+
+    #this vps for database
+    vps3:
+      ansible_host: 192.168.89.109
+      ansible_become_user: root
+      ansible_become_password: 1

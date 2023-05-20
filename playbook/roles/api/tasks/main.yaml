@@ -1,0 +1,39 @@
+---
+# - name: get new tags from remote
+#   shell: "git fetch --tags"
+#   args:
+#     chdir: "{{ path }}"
+
+# - name: get latest tag name
+#   shell: "git describe --tags `git rev-list --tags --max-count=1`"
+#   args:
+#     chdir: "{{ path }}"
+#   register: latest_tag
+
+# - name: check the latest tag
+#   git:
+#     repo: 
+
+
+
+
+
+- name: full image of web server from docker hub
+  docker_image:
+    name: "{{ webserver_image_name }}"
+    tag: "{{ webserver_image_tag }}"
+    source: pull
+
+
+- name: creat a docker container for web app and mapping port
+  docker_container:
+    name: "{{ webapp_container_name }}"
+    image: "{{ webapp_image_name }}:{{ webapp_image_tag }}"
+    ports:
+      - "5000:5000"
+    env:
+      MONGO_HOST: "{{ MONGO_HOST }}"
+      MONGO_PORT: "{{ MONGO_PORT }}"
+      FLASK_ENV: "{{ FLASK_ENV }}"
+    state: started
+
