@@ -1,13 +1,34 @@
 ---
  
+- name: Clone the Repository
+  git:
+    repo: https://github.com/LittleHawk03/ci-cd-practice.git
+    dest: "/home/honahl/Documents/ci-cd-practice/playbook/roles/api/github"
+    version: "/home/honahl/Documents/ci-cd-practice/playbook/roles/api/github"
+    update: no
 
+- name: Fetch Tags
+  command: git fetch --tags
+  args:
+    chdir: "/home/honahl/Documents/ci-cd-practice/playbook/roles/api/github"
+  register: fetch_output
+  changed_when: false
+
+- name: get latest tag name
+  shell: "git describe --tags `git rev-list --tags --max-count=1`"
+  args:
+    chdir: "/home/honahl/Documents/ci-cd-practice/playbook/roles/api/github"
+  register: latest_tag
+
+- name: Display Latest Tag
+  debug:
+    var: latest_tag.stdout
 
 - name: full image of web server from docker hub
   docker_image:
     name: "{{ webserver_image_name }}"
-    tag: "{{ webserver_image_tag }}"
+    tag: "{{ latest_tag.stdout }}"
     source: pull
-
 
 - name: creat a docker container for web app and mapping port
   docker_container:
