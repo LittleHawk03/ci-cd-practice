@@ -5,6 +5,9 @@
   gather_facts: false
   tasks:
   
+
+
+  
     - name: get details of all images
       docker_host_info:
         images: yes
