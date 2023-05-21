@@ -34,11 +34,17 @@
   docker_container:
     name: "{{ api_container_name }}"
     image: "{{ api_image_name }}:{{ latest_tag.stdout }}"
+    restart_policy: unless-stopped
     ports:
       - "5500:5500"
     env:
       MONGO_HOST: "{{ MONGO_HOST }}"
       MONGO_PORT: "{{ MONGO_PORT }}"
       FLASK_ENV: "{{ FLASK_ENV }}"
-    state: started
+    # state: started
+    log_driver: fluentd
+    log_options:
+      fluentd-address: "192.168.89.107:24224"
+      tag: "docker.api.nguyenmanhduc"
+
 

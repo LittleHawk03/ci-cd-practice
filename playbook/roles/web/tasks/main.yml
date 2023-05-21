@@ -39,4 +39,8 @@
       API_HOST: "http://{{ API_HOST }}"
       API_POST: "{{ API_POST }}"
       FLASK_ENV: "{{ FLASK_ENV }}"
-    state: started
+    # state: started
+    log_driver: fluentd
+    log_options:
+      fluentd-address: "192.168.89.107:24224"
+      tag: "docker.web.nguyenmanhduc"

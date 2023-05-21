@@ -3,6 +3,7 @@ api_image_name: littlehawk03/api
 api_container_name: api
 # api_image_tag: latest
 
-MONGO_HOST: "192.168.89.111"
+FLUENTD_HOST: "192.168.89.107"
+MONGO_HOST: "192.168.89.114"
 MONGO_PORT: "27017"
 FLASK_ENV: development
