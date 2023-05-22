@@ -385,9 +385,11 @@ and docker history
         - name: Start containers
           run: docker-compose -f "api/docker-compose.yml" up -d --build
 
+
           # it make sure api container is running Adjust the sleep duration as needed to allow the API container to start
         - name: Wait for API to start
           run: sleep 5 
+
 
 
         - name: check docker container running
