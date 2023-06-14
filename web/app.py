@@ -6,7 +6,7 @@ title = "my dream"
 heading = "THE ADVENTURE OF VIETTEL DIGITAL TALENT"
 
 
-base_host =  os.environ.get('API_HOST','http://localhost')
+base_host =  os.environ.get('API_HOST','0.0.0.0')
 base_port =  os.environ.get('API_POST','5500')
 
 
@@ -23,7 +23,7 @@ def redirect_url():
 @app.route("/list", methods=['GET'])
 def list():
     
-    data = requests.get(f'{base_host}:{base_port}/')
+    data = requests.get(f'http://{base_host}:{base_port}/')
 
     todos_l = data.json()
     return render_template('index.html', todos=todos_l, t=title, h=heading)
@@ -31,7 +31,7 @@ def list():
 # this function use to direct to add a new candicate 
 @app.route("/add_candidate")
 def add_candidate():
-    data = requests.get(f'{base_host}:{base_port}/')
+    data = requests.get(f'http://{base_host}:{base_port}/')
     todos_l = data.json()
     return render_template('add.html', todos=todos_l, t=title, h=heading)
 
@@ -41,14 +41,14 @@ def add_candidate():
 def remove():
     id = request.values.get("_id")
     # listCandi.delete_one({"_id": ObjectId(id)})
-    response = requests.delete(f'{base_host}:{base_port}/candidates/{id}')
+    response = requests.delete(f'http://{base_host}:{base_port}/candidates/{id}')
     return redirect("/")
 
 
 @app.route("/update")
 def update():
     id = request.values.get("_id")
-    response = requests.get(f'{base_host}:{base_port}/candidates/{id}')
+    response = requests.get(f'http://{base_host}:{base_port}/candidates/{id}')
     data =response.json()
     print(data)
     # id = request.values.get("_id")
@@ -79,7 +79,7 @@ def action_add():
     }
     print(data)
     
-    mess = requests.post(f'{base_host}:{base_port}/candidates',json=data)
+    mess = requests.post(f'http://{base_host}:{base_port}/candidates',json=data)
     # print(mess)
     
     return redirect("/add_candidate")
@@ -108,7 +108,7 @@ def action_update():
             "field": field
     }
     print(data)
-    requests.put(f"{base_host}:{base_port}/candidates/update/{id}",json=data)
+    requests.put(f"http://{base_host}:{base_port}/candidates/update/{id}",json=data)
     return redirect("/")
 
 
@@ -119,11 +119,11 @@ def action_search():
     refer=request.values.get("refer")
     
     if refer == 'id':
-        response=requests.get(f'{base_host}:{base_port}/candidates/{key}')
+        response=requests.get(f'http://{base_host}:{base_port}/candidates/{key}')
         data=response.json()
         return render_template('searchlist.html',todos=data,t=title,h=heading)
     else:   
-        response=requests.get(f'{base_host}:{base_port}/candidates/search',json={refer:key})
+        response=requests.get(f'http://{base_host}:{base_port}/candidates/search',json={refer:key})
         data=response.json()
         return render_template('searchlist.html',todos=data,t=title,h=heading)
 
