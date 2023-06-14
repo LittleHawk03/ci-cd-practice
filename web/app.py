@@ -6,6 +6,8 @@ title = "my dream"
 heading = "THE ADVENTURE OF VIETTEL DIGITAL TALENT"
 
 
+
+
 base_host =  os.environ.get('API_HOST','0.0.0.0')
 base_port =  os.environ.get('API_POST','5500')
 
